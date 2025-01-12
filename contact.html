@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Mates Bundle</title>
+    <link rel="icon" href="logo.jpg" sizes="512x512" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #b22317;
+            display: flex;
+            flex-direction: column;
+            min-height: 50vh;
+            padding-top: 130px; /* Prevents content from overlapping with the fixed header and navbar */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: Garamond;
+            align-items: center;
+            position: fixed; /* Makes the header fixed */
+            top: 0; /* Sticks to the top */
+            width: 100%; /* Ensures it spans the full width */
+            z-index: 800; /* Ensures it stays above other content */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+
+        header .logo {
+            font-weight: 80;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img.logo-image {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            font-size: 3.2em;
+        }
+
+        header .contact-info span {
+            margin-right: 40px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #333;
+            width: 100%;
+            position: fixed; /* Makes the navbar fixed */
+            top: 80px; /* Adjust based on the header height */
+            z-index: 999; /* Ensures it stays above content */
+        }
+
+        .navbar a, .subnavbtn {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            text-decoration: none;
+            background-color: inherit;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: red;
+        }
+
+        .subnav {
+            position: relative;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            background-color: red;
+            width: 200px;
+            z-index: 1;
+            top: 100%;
+        }
+
+        .subnav-content a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 12px 16px;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+        .intro-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 50px 20px;
+            background-image: url('welcome.jpg'); /* Sets the image as a background */
+            background-size: cover; /* Ensures the image covers the entire section */
+            background-position: center; /* Centers the image */
+            color: white; /* Makes the text stand out on the background */
+            height: 400px; /* Adjust the height as needed */
+        }
+
+        .intro-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* Adds a shadow to the text */
+        }
+
+        .intro-section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            line-height: 1.5;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* Adds a shadow to the text */
+        }
+
+        .social-media-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .social-media-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .social-media-box:hover {
+            transform: scale(1.05);
+        }
+
+        .social-media-box img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .social-media-box a {
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .social-media-box a:hover {
+            color: red;
+        }
+
+       /* Footer Styling */
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" class="logo-image">
+    Home Mates Bundle
+  </div>
+  <div class="contact-info">
+  
+	<a href="https://wa.me/+601115255878" target="_blank">📞 011-15255878</a>
+
+    <span>✉️ HomeMatesBundle@gmail.com</span>
+  </div>
+</header>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <div class="subnav">
+    <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="history.html">History</a>
+      <a href="staff.html">Staff</a>
+      <a href="location.html">Location</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Product <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="product.html">Clothes</a>
+      <a href="pants.html">Pants</a>
+      <a href="shoes.html">Shoes</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Community <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="feedback.html">Feedback</a>
+      <a href="news.html">News</a>
+    </div>
+  </div>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- Intro Section -->
+<div class="intro-section">
+    <h2>CONTACT US</h2>
+    <p>We’d love to hear from you! Whether you have questions, feedback, or simply want to say hello, feel free to get in touch with us!</p>
+</div>
+
+<!-- Social Media -->
+<div class="social-media-section">
+  <div class="social-media-box">
+    <a href="https://www.instagram.com/homemates_bundle?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+      <img src="ig.jpg" alt="Instagram">
+      <p>Instagram</p>
+    </a>
+  </div>
+  <div class="social-media-box">
+    <a href="https://www.facebook.com/share" target="_blank">
+      <img src="fb.jpg" alt="Facebook">
+      <p>Facebook</p>
+    </a>
+  </div>
+<div class="social-media-section">
+  <div class="social-media-box">
+    <a href="https://wa.me/+601115255878" target="_blank">
+      <img src="wassap.jpg" alt="Instagram">
+      <p>Instagram</p>
+    </a>
+  </div>
+</div>
+</div>
+
+<!-- Footer Section -->
+<footer>
+  <div>
+    <h4>We accept</h4>
+    <div class="payment-icons">
+      <img src="visa.jpg" alt="Visa" class="payment-icon">
+      <img src="mastercard.jpg" alt="MasterCard" class="payment-icon">
+      <img src="applepay.jpg" alt="Applepay" class="payment-icon">
+    </div>
+  </div>
+  <p>Copyright &copy; 2025 Home Mates Bundle. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
