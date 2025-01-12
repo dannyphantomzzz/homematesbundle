@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Mates Bundle</title>
+    <link rel="icon" href="logo.jpg" sizes="512x512" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color:  #b22317;
+            display: flex;
+            flex-direction: column;
+            min-height: 50vh;
+            padding-top: 130px; /* Prevents content from overlapping with the fixed header and navbar */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: Garamond;
+            align-items: center;
+            position: fixed; /* Makes the header fixed */
+            top: 0; /* Sticks to the top */
+            width: 100%; /* Ensures it spans the full width */
+            z-index: 800; /* Ensures it stays above other content */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+
+        header .logo {
+            font-weight: 80;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img.logo-image {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            font-size: 3.2em;
+        }
+
+        header .contact-info span {
+            margin-right: 40px;
+        }
+
+          /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #333;
+            width: 100%;
+            position: fixed; /* Makes the navbar fixed */
+            top: 80px; /* Adjust based on the header height */
+            z-index: 999; /* Ensures it stays above content */
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .navbar a, .subnavbtn {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            text-decoration: none;
+            background-color: inherit;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: red;
+            transform: scale(1.1);
+        }
+
+        .subnav {
+            position: relative;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            background-color: red;
+            width: 200px;
+            z-index: 1;
+            top: 100%;
+        }
+
+        .subnav-content a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 12px 16px;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+        
+        /* Container */
+        .feedback-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 90px;
+            background: #fff;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Title and Description */
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .page-description {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        /* Form Styles */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #f9f9f9;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Submit Button */
+        .form-button {
+            padding: 12px 20px;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .form-button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        /* Success Message */
+        .success-message {
+            color: green;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" class="logo-image">
+    Home Mates Bundle
+  </div>
+  <div class="contact-info">
+    <a href="https://wa.me/+601115255878" target="_blank">📞 011-15255878</a>
+
+    <span>✉ HomeMatesBundle@gmail.com</span>
+  </div>
+</header>
+<!-- Navbar -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <div class="subnav">
+    <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="history.html">History</a>
+      <a href="staff.html">Staff</a>
+      <a href="location.html">Location</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Product <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="product.html">Clothes</a>
+      <a href="pants.html">Pants</a>
+      <a href="shoes.html">Shoes</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Community <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="feedback.html">Feedback</a>
+      <a href="news.html">News</a>
+    </div>
+  </div>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+ <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Clear previous messages
+            document.querySelectorAll('.error-message').forEach(e => e.remove());
+            const successMessage = document.querySelector('.success-message');
+            if (successMessage) successMessage.remove();
+
+            let isValid = true;
+
+            // Validate Name
+            const nameInput = document.getElementById('name');
+            if (nameInput.value.trim() === '') {
+                showError(nameInput, 'Name is required.');
+                isValid = false;
+            }
+
+            // Validate Email
+            const emailInput = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value)) {
+                showError(emailInput, 'Please enter a valid email.');
+                isValid = false;
+            }
+
+            // Validate Feedback
+            const feedbackInput = document.getElementById('feedback');
+            if (feedbackInput.value.trim() === '') {
+                showError(feedbackInput, 'Feedback cannot be empty.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Display success message
+                const form = document.querySelector('.feedback-form');
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.innerText = 'Thank you for your feedback!';
+                form.parentElement.insertBefore(successDiv, form);
+
+                // Reset form fields
+                form.reset();
+            }
+        }
+
+        function showError(input, message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerText = message;
+            input.parentElement.insertBefore(errorDiv, input.nextSibling);
+        }
+    </script>
+</head>
+<body>
+    <div class="feedback-container">
+        <h1 class="page-title">We Value Your Feedback</h1>
+        <p class="page-description">Your opinions and suggestions help us grow. Please take a moment to share your thoughts!</p>
+        <form class="feedback-form" onsubmit="validateForm(event)">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name">
+
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email">
+
+            <label for="feedback" class="form-label">Your Feedback</label>
+            <textarea id="feedback" name="feedback" class="form-textarea" placeholder="Write your feedback here..."></textarea>
+
+            <button type="submit" class="form-button">Submit</button>
+        </form>
+<br>
+</div>
+</div>
+
+<!-- Footer Section -->
+<footer>
+  <div>
+    <h4>We accept</h4>
+    <div class="payment-icons">
+      <img src="visa.jpg" alt="Visa" class="payment-icon">
+      <img src="mastercard.jpg" alt="MasterCard" class="payment-icon">
+      <img src="applepay.jpg" alt="Applepay" class="payment-icon">
+    </div>
+  </div>
+  <p>Copyright &copy; 2025 Home Mates Bundle. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

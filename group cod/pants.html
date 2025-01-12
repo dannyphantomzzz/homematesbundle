@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Purchase</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 50vh;
+            padding-top: 130px; /* Prevents content from overlapping with the fixed header and navbar */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: Garamond;
+            align-items: center;
+            position: fixed; /* Makes the header fixed */
+            top: 0; /* Sticks to the top */
+            width: 100%; /* Ensures it spans the full width */
+            z-index: 800; /* Ensures it stays above other content */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+
+        header .logo {
+            font-weight: 80;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img.logo-image {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            font-size: 3.2em;
+        }
+
+        header .contact-info span {
+            margin-right: 40px;
+        }
+
+         /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #333;
+            width: 100%;
+            position: fixed; /* Makes the navbar fixed */
+            top: 80px; /* Adjust based on the header height */
+            z-index: 999; /* Ensures it stays above content */
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .navbar a, .subnavbtn {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+            text-decoration: none;
+            background-color: inherit;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: red;
+            transform: scale(1.1);
+        }
+
+        .subnav {
+            position: relative;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            background-color: red;
+            width: 200px;
+            z-index: 1;
+            top: 100%;
+        }
+
+        .subnav-content a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 12px 16px;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+
+
+        /* Video Section Styling */
+        .content video {
+            display: block;
+            width: 100%; /* Ensures the video spans the entire width */
+            height: auto;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: calc(30% - 40px);
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            color: gray;
+        }
+
+        .price {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-buy {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn-buy:hover {
+            background-color: #0056b3;
+        }
+
+        .purchase-form {
+            width: 60%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+	.delivery-options label {
+       	   display: inline-block;
+           margin-right: 60px; /* Adjust the space between each option */
+    	}
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" class="logo-image">
+    Home Mates Bundle
+  </div>
+  <div class="contact-info">
+    <a href="https://wa.me/+601115255878" target="_blank">📞 011-15255878</a>
+
+    <span>✉️ HomeMatesBundle@gmail.com</span>
+
+  </div>
+</header>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <div class="subnav">
+    <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="history.html">History</a>
+      <a href="staff.html">Staff</a>
+      <a href="location.html">Location</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Product <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="product.html">Clothes</a>
+      <a href="pants.html">Pants</a>
+      <a href="shoes.html">Shoes</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Community <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="feedback.html">Feedback</a>
+      <a href="news.html">News</a>
+    </div>
+  </div>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+
+<!-- Content Section with Video Background -->
+<div class="content">
+  <video autoplay loop muted>
+    <source src="seluar.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+
+<!-- Product Grid Section -->
+<div id="productGrid" class="product-grid">
+    <div class="product-card">
+        <img src="seluar1.jpg" alt="Product 1">
+        <div class="product-info">
+            <h3>DARK GREY BAGGED JEANS</h3>
+            <p>Waist Sizes: 32</p>
+            <div class="price">RM15.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Casual Neck-Tie Top', '$25.00')">Buy Now</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="seluar2.jpg" alt="Product 2">
+        <div class="product-info">
+            <h3>LIGHT BLUE JEANS</h3>
+            <p>Waist Sizes: 30 </p>
+            <div class="price">RM10.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Summer Dress', '$30.00')">Buy Now</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="seluar3.jpg" alt="Product 3">
+        <div class="product-info">
+            <h3>KHAKI JEANS</h3>
+            <p>Waist Sizes: 35</p>
+            <div class="price">RM18.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Formal Blazer', '$35.00')">Buy Now</button>
+        </div>
+    </div>
+	<div class="product-card">
+        <img src="seluar4.jpg" alt="Product 1">
+        <div class="product-info">
+            <h3>BLACK CORDUROY</h3>
+            <p>Waist Sizes: 38</p>
+            <div class="price">RM20.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Casual Neck-Tie Top', '$25.00')">Buy Now</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="seluar5.jpg" alt="Product 2">
+        <div class="product-info">
+            <h3>BAGGED CARGO</h3>
+            <p>Waist Sizes:34</p>
+            <div class="price">RM20.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Summer Dress', '$30.00')">Buy Now</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="seluar6.jpg" alt="Product 3">
+        <div class="product-info">
+            <h3>COFFEE JEANS</h3>
+            <p>Waist Sizes: 33</p>
+            <div class="price">RM10.00</div>
+            <button class="btn-buy" onclick="showPurchaseForm('Formal Blazer', '$35.00')">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Purchase Form Section -->
+<div id="purchaseForm" class="purchase-form">
+    <form id="purchase-form">
+        <!-- Name Field -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" placeholder="Enter your full address" required></textarea>
+        </div>
+
+        <!-- Clothing Item -->
+        <div class="form-group">
+    	<label for="clothing-item">Select Clothing</label>
+  	  <select id="clothing-item" name="clothing-item" required>
+       	 <option value="" disabled selected>Select an item</option>
+      	  <option value="DARK GREY BAGGED JEANS">DARK GREY BAGGED JEANS</option>
+      	  <option value="LIGHT BLUE JEANS">LIGHT BLUE JEANS</option>
+      	  <option value="KHAKI JEANS">KHAKI JEANS</option>
+          <option value="BLACK CORDUROY">BLACK CORDUROY</option>
+          <option value="BAGGED CARGO">BAGGED CARGO</option>
+          <option value="COFFEE JEANS">COFFEE JEANS</option>
+   	 </select>
+	</div>
+
+        <!-- Size Selection -->
+        <div class="form-group">
+	    <p>Select Delivery:</p>
+            <div class="delivery-options">
+                <label><input type="radio" name="delivery" value="Standard Delivery" required>Standard Delivery</label>
+                <label><input type="radio" name="delivery" value="Fast Delivery">Fast Delivery</label>
+                <label><input type="radio" name="delivery" value="Same Day Delivery">Same Day Delivery</label>
+                <label><input type="radio" name="delivery" value="Self-Pickup">Self-Pickup</label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+    </form>
+</div>
+
+<script>
+    function showPurchaseForm(product, price) {
+        // Hide the product grid and show the purchase form
+        document.getElementById('productGrid').style.display = 'none';
+        document.getElementById('purchaseForm').style.display = 'block';
+
+        // Set the selected product details in the form
+        document.getElementById('clothing-item').value = product;
+    }
+
+    function submitForm() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+        const product = document.getElementById('clothing-item').value;
+
+        // Check if any field is missing
+        if (!name || !email || !address || !product) {
+            alert("Please complete all fields!");
+            return;
+        }
+
+        // Display order confirmation message
+        alert(`Thank you, ${name}! Your order for "${product}" has been received. We will ship it to ${address}. A confirmation email has been sent to ${email}.`);
+
+        // Hide the form and show the product grid again
+        document.getElementById('purchaseForm').style.display = 'none';
+        document.getElementById('productGrid').style.display = 'flex';
+
+        // Reset the form
+        document.getElementById('purchase-form').reset();
+    }
+</script>
+
+<!-- Footer Section -->
+<footer>
+  <div>
+    <h4>We accept</h4>
+    <div class="payment-icons">
+      <img src="visa.jpg" alt="Visa" class="payment-icon">
+      <img src="mastercard.jpg" alt="MasterCard" class="payment-icon">
+      <img src="applepay.jpg" alt="Applepay" class="payment-icon">
+    </div>
+  </div>
+  <p>Copyright &copy; 2025 Home Mates Bundle. All rights reserved.</p>
+</footer>
+
+
+</body>
+</html>
